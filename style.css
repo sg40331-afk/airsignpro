@@ -1,0 +1,82 @@
+/* =========================================================
+   에어사인 프로 — 에어간판 장비·부자재 전문몰 랜딩페이지
+   전역 스타일 (style.css)
+   ========================================================= */
+
+/* Pretendard 웹폰트 */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Pretendard", "Pretendard Variable", -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #16202E;
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+::selection {
+  background: #F15A22;
+  color: #fff;
+}
+
+/* 히어로 카드 떠다니는 애니메이션 */
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* FAQ 버튼 커서 */
+[data-faq-q] { cursor: pointer; }
+
+/* =========================================================
+   반응형 — 태블릿 / 모바일에서 그리드 단 수 축소
+   (인라인 스타일을 덮어쓰기 위해 !important 사용)
+   ========================================================= */
+@media (max-width: 1024px) {
+  [style*="grid-template-columns: repeat(5"] { grid-template-columns: repeat(3, 1fr) !important; }
+  [style*="grid-template-columns: repeat(4"] { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+@media (max-width: 720px) {
+  /* 헤더 내비 숨김 */
+  header nav { display: none !important; }
+
+  /* 2단 레이아웃 → 1단 */
+  [style*="grid-template-columns: 0.95fr"],
+  [style*="grid-template-columns: 1.05fr"],
+  [style*="grid-template-columns: 0.85fr"],
+  [style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+
+  /* 카드 그리드 → 1~2단 */
+  [style*="grid-template-columns: repeat(5"],
+  [style*="grid-template-columns: repeat(4"],
+  [style*="grid-template-columns: repeat(3"] { grid-template-columns: 1fr 1fr !important; }
+
+  /* 투자 수익 하이라이트 → 세로 */
+  [style*="grid-template-columns: repeat(3, 1fr) auto"] { grid-template-columns: 1fr !important; }
+
+  /* 히어로 제목 폭 고정 해제 */
+  h1[style*="width: 1200px"] { width: auto !important; font-size: 38px !important; }
+  p[style*="width: 1000px"] { width: auto !important; }
+
+  /* 큰 제목 축소 */
+  h2 { font-size: 30px !important; }
+
+  /* 섹션 좌우 여백 축소 */
+  section, header > div, footer > div { padding-left: 18px; padding-right: 18px; }
+}
