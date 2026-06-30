@@ -40,43 +40,71 @@ a {
   50%      { transform: translateY(-8px); }
 }
 
-/* FAQ 버튼 커서 */
-[data-faq-q] { cursor: pointer; }
-
 /* =========================================================
-   반응형 — 태블릿 / 모바일에서 그리드 단 수 축소
-   (인라인 스타일을 덮어쓰기 위해 !important 사용)
+   반응형 — 인라인 style 속성을 덮어쓰기 때문에 !important 사용
+   (index.html의 인라인 스타일은 공백 없는 압축 형식이므로
+    선택자도 동일한 형식으로 매칭합니다)
    ========================================================= */
+
+/* ── 태블릿 (≤1024px) : 5·4열 카드 줄이기 ── */
 @media (max-width: 1024px) {
-  [style*="grid-template-columns: repeat(5"] { grid-template-columns: repeat(3, 1fr) !important; }
-  [style*="grid-template-columns: repeat(4"] { grid-template-columns: repeat(2, 1fr) !important; }
+  [style*="grid-template-columns:repeat(5"] { grid-template-columns: repeat(3, 1fr) !important; }
+  [style*="grid-template-columns:repeat(4"] { grid-template-columns: repeat(2, 1fr) !important; }
 }
 
-@media (max-width: 720px) {
-  /* 헤더 내비 숨김 */
+/* ── 모바일 (≤768px) ── */
+@media (max-width: 768px) {
+  /* 헤더: 내비 숨기고 높이 축소 */
   header nav { display: none !important; }
+  header > div { height: 64px !important; }
 
-  /* 2단 레이아웃 → 1단 */
-  [style*="grid-template-columns: 0.95fr"],
-  [style*="grid-template-columns: 1.05fr"],
-  [style*="grid-template-columns: 0.85fr"],
-  [style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+  /* 2단/3단 레이아웃 → 1단 */
+  [style*="grid-template-columns:0.95fr"],
+  [style*="grid-template-columns:0.85fr"],
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns:repeat(3,1fr) auto"] { grid-template-columns: 1fr !important; }
 
-  /* 카드 그리드 → 1~2단 */
-  [style*="grid-template-columns: repeat(5"],
-  [style*="grid-template-columns: repeat(4"],
-  [style*="grid-template-columns: repeat(3"] { grid-template-columns: 1fr 1fr !important; }
+  /* 카드 그리드 → 2단 */
+  [style*="grid-template-columns:repeat(5"],
+  [style*="grid-template-columns:repeat(4"],
+  [style*="grid-template-columns:repeat(3"] { grid-template-columns: repeat(2, 1fr) !important; }
 
-  /* 투자 수익 하이라이트 → 세로 */
-  [style*="grid-template-columns: repeat(3, 1fr) auto"] { grid-template-columns: 1fr !important; }
+  /* 정렬 끝 요소(끝맞춤) → 좌측 정렬 */
+  [style*="align-items: end"], [style*="align-items:end"] { align-items: start !important; }
 
-  /* 히어로 제목 폭 고정 해제 */
-  h1[style*="width: 1200px"] { width: auto !important; font-size: 38px !important; }
-  p[style*="width: 1000px"] { width: auto !important; }
+  /* 히어로 제목: 줄바꿈 허용 + 축소 */
+  [style*="white-space:nowrap"] { white-space: normal !important; }
 
-  /* 큰 제목 축소 */
-  h2 { font-size: 30px !important; }
+  /* 큰 글자 스케일다운 */
+  [style*="font-size:60px"] { font-size: 34px !important; line-height: 1.25 !important; }
+  [style*="font-size:46px"], [style*="font-size:42px"], [style*="font-size:40px"] { font-size: 28px !important; line-height: 1.2 !important; }
+  [style*="font-size:38px"] { font-size: 26px !important; }
+  [style*="font-size:34px"] { font-size: 26px !important; }
+  [style*="font-size:30px"] { font-size: 22px !important; }
+  [style*="font-size:28px"] { font-size: 22px !important; }
+  [style*="font-size:26px"] { font-size: 20px !important; }
+  [style*="font-size:25px"] { font-size: 20px !important; }
+  [style*="font-size:24px"] { font-size: 18px !important; }
+  [style*="font-size:23px"] { font-size: 19px !important; }
+  [style*="font-size:22px"] { font-size: 18px !important; }
 
-  /* 섹션 좌우 여백 축소 */
-  section, header > div, footer > div { padding-left: 18px; padding-right: 18px; }
+  /* 세로 여백 축소 */
+  [style*="padding:118px 28px"] { padding: 60px 20px !important; }
+  [style*="padding:104px 0"], [style*="padding:100px 0"], [style*="padding:96px 0"] { padding-top: 56px !important; padding-bottom: 56px !important; }
+  [style*="padding:50px 48px"] { padding: 26px 20px !important; }
+  [style*="padding:34px 40px"] { padding: 24px 22px !important; }
+
+  /* 좌우 여백 축소 (max-width 컨테이너) */
+  [style*="padding:0 28px"] { padding-left: 18px !important; padding-right: 18px !important; }
+
+  /* 큰 버튼 폭 채우기 */
+  [style*="margin-top:36px"] a, [style*="margin-top:38px"] a { flex: 1 1 auto; justify-content: center; }
+}
+
+/* ── 작은 폰 (≤480px) : 카드 1단 ── */
+@media (max-width: 480px) {
+  [style*="grid-template-columns:repeat(5"],
+  [style*="grid-template-columns:repeat(4"],
+  [style*="grid-template-columns:repeat(3"] { grid-template-columns: 1fr !important; }
+  [style*="font-size:60px"] { font-size: 28px !important; }
 }
